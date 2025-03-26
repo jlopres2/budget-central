@@ -1,4 +1,4 @@
-# 💰 Budget Central – Smart Budgeting for You & Your Family  
+# 💰 Budget Central – Smart Budgeting
 
 **Budget Central** is a simple and intuitive budgeting app designed for **personal use, family finances, and friends** who want to manage their money wisely. It follows the **50/30/20 rule**, helping users allocate their income efficiently across **needs (50%)**, **wants (30%)**, and **savings/investments (20%)**.  
 
