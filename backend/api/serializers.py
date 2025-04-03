@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-
+from .models import Expense
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,3 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
         print(validated_data)
         user = User.objects.create_user(**validated_data)
         return user
+
+
+class ExpenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expense
+        fields = ["id", "title", "description", "amount" , "author"]
+        extra_kwargs = {"author": {"read_only": True}}
