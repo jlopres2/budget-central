@@ -16,7 +16,7 @@ class CreateUserView(generics.CreateAPIView):
 
 class ExpenseListCreate(generics.ListCreateAPIView):
     serializer_class = ExpenseSerializer
-    permission_class = [AllowAny]
+    permission_class = [IsAuthenticated]
     # permission_class = [ALLOW_ANY]
 
     def get_queryset(self):
