@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     # path('expenses/', get_expenses, name = 'get_books'),
     path("expenses/", views.ExpenseListCreate.as_view(), name="expense-list"),
-    path("notes/delete/<int:pk>", views.ExpenseDelete.as_view(), name="delete-note"),
+    path("expenses/delete/<int:pk>", views.ExpenseDelete.as_view(), name="delete-note"),
 ]

@@ -11,7 +11,7 @@ from .models import Expense
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class ExpenseListCreate(generics.ListCreateAPIView):
@@ -21,7 +21,7 @@ class ExpenseListCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Expense.object.filter(author=user)
+        return Expense.objects.filter(author=user)
 
     def perform_create(self, serializer):
         if serializer.is_valid():
