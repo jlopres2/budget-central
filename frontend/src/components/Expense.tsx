@@ -1,16 +1,14 @@
 import React from "react";
-import "../styes/Expense.css"
+import "../styles/Expense.css"
+import { ExpenseType } from "../types/Expense";
 
-// interface ExpenseProp{
-//     title: string;
-//     description: string;
-//     amount: number;
-//     category: string;
-//     date: string;
-// }
+interface ExpenseProps{
+    expense: ExpenseType;
+    onDelete: (id: number) => void;
+}
 
-function Expense({ expense, onDelete }) {
-    // const formattedDate = new Date(expense.created_at).toLocaleDateString("en-US")
+const Expense: React.FC<ExpenseProps> = ({ expense, onDelete }) => {
+    const formattedDate = new Date(expense.date).toLocaleDateString("en-US")
 
     return (
         <div className="expense-container">
@@ -18,7 +16,7 @@ function Expense({ expense, onDelete }) {
             <p className="expense-description">{expense.description}</p>
             <p className="expense-amount">{expense.amount}</p>
             <p className="expense-category">{expense.category}</p>
-            <p className="expense-date">{expense.date}</p>
+            <p className="expense-date">{formattedDate}</p>
             
         
             <button className="delete-button" onClick={() => onDelete(expense.id)}>
