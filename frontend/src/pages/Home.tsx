@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import api from "../api";
-import Expense from "../components/Expense";
-import { ExpenseType } from "../types/Expense";
+import ExpenseView from "../components/ExpenseView";
+import { Expense } from "../types/Expense";
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css"; 
+import ExpenseTable from "../components/ExpenseTable";
 
 const Home = () => {
   
-  const [expenses, setExpenses] = useState<ExpenseType[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -40,7 +41,7 @@ const Home = () => {
       .catch((error) => alert(error));
   };
 
-  const createExpense = (e: any) => {
+  const createExpense = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     api
       .post("/api/expenses/", {
@@ -55,22 +56,33 @@ const Home = () => {
         if (res.status === 201) alert("Expense created!");
         else alert("Failed to create expense");
         getExpenses();
+        clearEntry();
       });
   };
+  
+  const clearEntry = () => {
+    setTitle("");
+    setDescription("");
+    setAmount("");
+    setCategory("");
+    setDate(new Date());
+
+  }
 
   return (
     <div>
-      <div>
-        <h2>Notes</h2>
-        {expenses.map((expense: ExpenseType) => (
-          <Expense
+      {/* <div>
+        <h2>Expenses</h2>
+        {expenses.map((expense: Expense) => (
+          <ExpenseView
             expense={expense}
             onDelete={deleteExpense}
             key={expense.id}
           />
         ))}
-      </div>
-      <h2>Create a Note</h2>
+      </div> */}
+      <ExpenseTable expenseList={expenses}/>
+      <h2>Create an Expense</h2>
       <form onSubmit={createExpense}>
         <label htmlFor="title">Title:</label>
         <br />
@@ -82,6 +94,7 @@ const Home = () => {
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
+        <br />
         <label htmlFor="description">description:</label>
         <br />
         <textarea

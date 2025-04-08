@@ -1,0 +1,8 @@
+Array(n) // n number of expenses plgged in
+  -amount
+  -author
+  -category
+  -date
+  -description
+  -id
+  -title

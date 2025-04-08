@@ -1,13 +1,13 @@
 import React from "react";
 import "../styles/Expense.css"
-import { ExpenseType } from "../types/Expense";
+import { Expense } from "../types/Expense";
 
-interface ExpenseProps{
-    expense: ExpenseType;
+interface ExpenseViewProps{
+    expense: Expense;
     onDelete: (id: number) => void;
 }
 
-const Expense: React.FC<ExpenseProps> = ({ expense, onDelete }) => {
+const ExpenseView: React.FC<ExpenseViewProps> = ({ expense, onDelete }) => {
     const formattedDate = new Date(expense.date).toLocaleDateString("en-US")
 
     return (
@@ -25,4 +25,4 @@ const Expense: React.FC<ExpenseProps> = ({ expense, onDelete }) => {
         </div>
     );
 }
-export default Expense
+export default ExpenseView
