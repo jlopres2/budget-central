@@ -2,10 +2,13 @@
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
+
+
 }
 
+
 .expense-table-cell {
-    border: 1px solid #dddddd;
+    border: 5px solid #d62424;
     text-align: left;
     padding: 8px;
 }

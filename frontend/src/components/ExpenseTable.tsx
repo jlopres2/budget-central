@@ -1,12 +1,13 @@
 import { Expense } from "../types/Expense";
-import React, { useReducer, useState, FormEvent } from "react";
+import React, { useReducer, useState, useEffect, FormEvent } from "react";
 import {
     createColumnHelper,
     flexRender,
     getCoreRowModel,
     useReactTable,
   } from '@tanstack/react-table'
-
+  import api from "../api";
+import "./../styles/Expense.css"
 
 const columnHelper = createColumnHelper<Expense>();
 
@@ -32,18 +33,30 @@ const columns = [
     cell: (info) => info.getValue(),
   }),
 ];
-interface TableProps
-{
-    expenseList: Expense[];
-}
 
-function ExpenseTable({expenseList}: TableProps){
-    const [data, setData] = useState<Expense[]>([...expenseList]);
+
+function ExpenseTable(){
+    const [expenses, setExpenses] = useState<Expense[]>([]);
 
     const [serachValue, setSearchValue] = useState("");
     const [inputSearchValue, setInputSearchValue] = useState("");
   
-    // setData(expenseList);
+    useEffect(() => {
+      getExpenses();
+    }, []);
+
+    const getExpenses = () => {
+      api
+        .get("api/expenses/")
+        .then((res) => res.data)
+        .then((data) => {
+          setExpenses(data);
+          console.log("Logging Expenses")
+          console.log(expenses)
+        })
+        .catch((error) => alert(error));
+    }; 
+
 
     const submitSearchForm = (e: FormEvent) => {
       e.preventDefault();
@@ -51,10 +64,22 @@ function ExpenseTable({expenseList}: TableProps){
     }
 
 
+  const deleteExpense = (id: number) => {
+    api
+      .delete(`/api/expenses/delete/${id}`)
+      .then((res) => {
+        if (res.status === 204) alert("Expense Deleted!");
+        else alert("Failed to delete expense");
+        getExpenses();
+      })
+      .catch((error) => alert(error));
+  };
+    console.log(expenses)
+
 
 
     const table = useReactTable({
-          data: data,
+          data: expenses,
           columns,
           debugTable: true,
           getCoreRowModel: getCoreRowModel(),
@@ -73,12 +98,12 @@ function ExpenseTable({expenseList}: TableProps){
           </form>
         </div>
 
-        <table className="users-table">
+        <table className="expense-table">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="users-table-cell">
+                  <th key={header.id} className="expense-table-cell">
                     <div
                       {...{
                         className: header.column.getCanSort()
@@ -105,7 +130,7 @@ function ExpenseTable({expenseList}: TableProps){
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="users-table-cell">
+                  <td key={cell.id} className="expense-table-cell">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
