@@ -2,17 +2,19 @@
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-
-
 }
 
 
+.expense-table-cell-header {
+  border: 5px solid #000000;
+  border-width: 1px;
+  text-align: center;
+  font-size: 20px;
+  padding: 8px;
+}
 .expense-table-cell {
-    border: 5px solid #d62424;
-    text-align: left;
-    padding: 8px;
-}
-
-.search-bar {
-    margin-bottom: 20px;
+  border: 5px solid #000000;
+  border-width: 1px;
+  text-align: left;
+  padding: 8px;
 }

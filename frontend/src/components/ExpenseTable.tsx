@@ -7,7 +7,7 @@ import {
     useReactTable,
   } from '@tanstack/react-table'
   import api from "../api";
-import "./../styles/Expense.css"
+import "./../styles/ExpenseTable.css"
 
 const columnHelper = createColumnHelper<Expense>();
 
@@ -38,11 +38,9 @@ const columns = [
 function ExpenseTable(){
     const [expenses, setExpenses] = useState<Expense[]>([]);
 
-    const [serachValue, setSearchValue] = useState("");
-    const [inputSearchValue, setInputSearchValue] = useState("");
-  
     useEffect(() => {
       getExpenses();
+
     }, []);
 
     const getExpenses = () => {
@@ -56,13 +54,6 @@ function ExpenseTable(){
         })
         .catch((error) => alert(error));
     }; 
-
-
-    const submitSearchForm = (e: FormEvent) => {
-      e.preventDefault();
-      setSearchValue(inputSearchValue);
-    }
-
 
   const deleteExpense = (id: number) => {
     api
@@ -87,39 +78,17 @@ function ExpenseTable(){
 
     return (
       <div>
-        <div className="search-bar">
-          <form onSubmit={submitSearchForm}>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={inputSearchValue}
-              onChange={(e) => setInputSearchValue(e.target.value)}
-            />
-          </form>
-        </div>
-
         <table className="expense-table">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="expense-table-cell">
-                    <div
-                      {...{
-                        className: header.column.getCanSort()
-                          ? "cursor-pointer select-none"
-                          : "",
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
+                  <th key={header.id} className="expense-table-cell-header">
+                    <div>
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      {{
-                        asc: " 🔼",
-                        desc: " 🔽",
-                      }[header.column.getIsSorted() as string] ?? null}
                     </div>
                   </th>
                 ))}

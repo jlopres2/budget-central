@@ -15,32 +15,25 @@ const Home = () => {
   const [category, setCategory] = useState(""); //will need to make a change for drop down menu
   const [date, setDate] = useState(new Date());
 
-  // useEffect(() => {
-  //   getExpenses();
-  // }, []);
+  const [totalExpenses, setTotalExpenses] = useState(0);
 
-  // const getExpenses = () => {
-  //   api
-  //     .get("api/expenses/")
-  //     .then((res) => res.data)
-  //     .then((data) => {
-  //       setExpenses(data);
-  //       console.log("Logging Expenses")
-  //       console.log(expenses)
-  //     })
-  //     .catch((error) => alert(error));
-  // };
+  const getExpenses = () => {
+    api
+      .get("api/expenses/")
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data);
+        let total = 0;
+        for (let i = 0; i < data.length; i++)
+        {
+          total += parseFloat(data[i].amount);
+        }
+        setTotalExpenses(total);
+      })
+      .catch((error) => alert(error));
+  }; 
+  getExpenses();
 
-  // const deleteExpense = (id: number) => {
-  //   api
-  //     .delete(`/api/expenses/delete/${id}`)
-  //     .then((res) => {
-  //       if (res.status === 204) alert("Expense Deleted!");
-  //       else alert("Failed to delete expense");
-  //       getExpenses();
-  //     })
-  //     .catch((error) => alert(error));
-  // };
 
   const createExpense = (e: ChangeEvent<HTMLFormElement>) => {
     // e.preventDefault();
@@ -70,19 +63,13 @@ const Home = () => {
 
   }
 
+  const labelStyle ={
+    fontSize: '25px',
+  };
+
   return (
     <div>
-      {/* <div>
-        <h2>Expenses</h2>
-        {
-        expenses.map((expense: Expense) => (
-          <ExpenseView
-            expense={expense}
-            onDelete={deleteExpense}
-            key={expense.id}
-          />
-        ))}
-      </div> */}
+      <label style={labelStyle}>TOTAL EXPENSE: {totalExpenses}</label>
       <br/>
       <ExpenseTable/>
       <h2>Create an Expense</h2>
