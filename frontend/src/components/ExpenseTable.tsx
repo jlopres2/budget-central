@@ -34,14 +34,16 @@ const columns = [
   }),
 ];
 
-
-function ExpenseTable(){
+interface ExpenseTableProps {
+  dataChanged: boolean;
+}
+function ExpenseTable(dataChanged: ExpenseTableProps){
     const [expenses, setExpenses] = useState<Expense[]>([]);
 
     useEffect(() => {
       getExpenses();
 
-    }, []);
+    }, [dataChanged]);
 
     const getExpenses = () => {
       api
