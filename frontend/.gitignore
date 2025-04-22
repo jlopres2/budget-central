@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#environment variable -- have to delete .env and push up to remove from github
+*.env 

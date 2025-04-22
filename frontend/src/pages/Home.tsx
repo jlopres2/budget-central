@@ -7,6 +7,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import ExpenseTable from "../components/ExpenseTable";
 import './../styles/AddExpenseForm.css'
 
+import { PlaidLinkButton } from "../components/PlaidLinkButton";
+
+interface Transaction {
+  transaction_id: number;
+  name:string;
+  amount: number;
+  date: string;
+}
+
 const Home = () => {
   const [isAddExpenseFormOpen, setIsAddExpenseFormOpen] = useState(false);
   const [dataChanged, setDataChanged] = useState(false);
@@ -20,6 +29,30 @@ const Home = () => {
   
   const [totalExpenses, setTotalExpenses] = useState(0);
 
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+
+  const fetchTransactions = async () => {
+    const token = localStorage.getItem('plaid_access_token');
+    console.log("📦 Sending token to backend:", localStorage.getItem("plaid_access_token"));
+
+    if (!token) return;
+
+    try {
+      const res = await api.post('/api/transactions/', {
+        access_token: token,
+      });
+      setTransactions(res.data.transactions || []);
+    } catch (err) {
+      console.error("Failed to fetch transactions:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("plaid_access_token")) {
+      fetchTransactions();
+    }
+  }, []);
 
 
   const getExpenses = () => {
@@ -27,7 +60,6 @@ const Home = () => {
       .get("api/expenses/")
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
         let total = 0;
         for (let i = 0; i < data.length; i++)
         {
@@ -51,7 +83,6 @@ const Home = () => {
         category,
       })
       .then((res) => {
-        console.log("CREATED");
         if (res.status === 201) alert("Expense created!");
         else alert("Failed to create expense");
         getExpenses();
@@ -86,6 +117,26 @@ const Home = () => {
     <div>
       <label style={labelStyle}>TOTAL EXPENSE: {totalExpenses}</label>
       <br/>
+
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Transactions</h1>
+        <PlaidLinkButton onSuccessCallback={fetchTransactions} />
+        <button
+          onClick={fetchTransactions}
+          className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+        >
+          Refresh Transactions
+        </button>
+
+        <ul className="mt-4">
+          {transactions.map((txn) => (
+            <li key={txn.transaction_id} className="border rounded p-4 mb-2">
+              <div className="font-semibold">{txn.name}</div>
+              <div>${txn.amount} on {txn.date}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <button className="add-expense-button" onClick={handleOpenAddExpenseForm}>ADD EXPENSE</button>
       {isAddExpenseFormOpen && (
@@ -165,7 +216,6 @@ const Home = () => {
       )}
 
       <ExpenseTable dataChanged={dataChanged}/>
-      <h2>Create an Expense</h2>
     </div>
   );
 };

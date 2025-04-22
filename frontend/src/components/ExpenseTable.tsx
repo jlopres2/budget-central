@@ -51,8 +51,6 @@ function ExpenseTable(dataChanged: ExpenseTableProps){
         .then((res) => res.data)
         .then((data) => {
           setExpenses(data);
-          console.log("Logging Expenses")
-          console.log(expenses)
         })
         .catch((error) => alert(error));
     }; 
@@ -67,7 +65,6 @@ function ExpenseTable(dataChanged: ExpenseTableProps){
       })
       .catch((error) => alert(error));
   };
-    console.log(expenses)
 
 
 
