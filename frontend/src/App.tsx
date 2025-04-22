@@ -4,6 +4,7 @@ import Register from "./pages/Register"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoutes"
+import Navbar from "./components/NavBar"
 
 function Logout() {
   localStorage.clear()
@@ -18,6 +19,7 @@ function RegisterAndLogout() {
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route
           path="/"
