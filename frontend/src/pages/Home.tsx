@@ -6,11 +6,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; 
 import ExpenseTable from "../components/ExpenseTable";
 import './../styles/AddExpenseForm.css'
+import './../styles/Home.css'
 
 import { PlaidLinkButton } from "../components/PlaidLinkButton";
 
 interface Transaction {
   transaction_id: number;
+  category: string;
   name:string;
   amount: number;
   date: string;
@@ -34,7 +36,7 @@ const Home = () => {
 
   const fetchTransactions = async () => {
     const token = localStorage.getItem('plaid_access_token');
-    console.log("📦 Sending token to backend:", localStorage.getItem("plaid_access_token"));
+    console.log("Sending token to backend:", localStorage.getItem("plaid_access_token"));
 
     if (!token) return;
 
@@ -138,32 +140,33 @@ const Home = () => {
         </ul>
       </div>
 
-      <button className="add-expense-button" onClick={handleOpenAddExpenseForm}>ADD EXPENSE</button>
+      <button className="add-expense-button btn" onClick={handleOpenAddExpenseForm}>ADD EXPENSE</button>
       {isAddExpenseFormOpen && (
         <div className="overlay">
           <div className="form-container">
-            <button className="close-button" onClick={handleCloseAddExpenseForm}>
-              X
-            </button>
             <h2>Add Expense Form</h2>
             <form onSubmit={createExpense}>
               {/* Form fields go here */}
               <label htmlFor="title">Title:</label>
               <br />
               <input
+                className="input"
                 type="text"
                 id="title"
                 name="title"
+                placeholder="Title"
                 required
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
               />
               <br />
-              <label htmlFor="description">description:</label>
+              <label htmlFor="description">Description:</label>
               <br />
               <textarea
+                className="textarea input-md"
                 id="description"
                 name="description"
+                placeholder="Description"
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -174,9 +177,11 @@ const Home = () => {
               <label htmlFor="amount">Amount:</label>
               <br />
               <input
+                className="input"
                 type="number"
                 id="amount"
                 name="amount"
+                placeholder= "$0.00"
                 required
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
@@ -189,14 +194,15 @@ const Home = () => {
               <select
                 id="category"
                 name="category"
+                className = "btn m-1"
                 required
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="">Select a category</option>
-                <option value="Leisure">Leisure</option>
-                <option value="Expense">Expense</option>
-                <option value="Savings">Savings</option>
+                <option className="text-left">Select a category</option>
+                <option className="text-left" value="Leisure">Leisure</option>
+                <option className="text-left" value="Expense">Expense</option>
+                <option className="text-left" value="Savings">Savings</option>
               </select>
               <br />
 
@@ -209,7 +215,10 @@ const Home = () => {
                 //dateFormat="yyyy-MM-dd" // Optional: Format the date in a preferred way
               />
               <br />
-              <button type="submit">Add Expense</button>
+              <button type="submit" className="btn bg-green-600 text-emerald-50">Add Expense</button>
+              <button className="btn bg-red-600 text-emerald-50" onClick={handleCloseAddExpenseForm}>
+                Exit
+              </button>
             </form>
           </div>
         </div>

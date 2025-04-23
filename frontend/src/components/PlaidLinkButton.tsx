@@ -32,11 +32,10 @@ export const PlaidLinkButton: React.FC<Props> = ({ onSuccessCallback }) => {
         console.log("✅ Public token exchanged successfully");
         localStorage.setItem("plaid_access_token", res.data.access_token);
         
-        // ✅ Add short delay before calling transaction fetch
+        // Add short delay before calling transaction fetch
         setTimeout(() => {
           onSuccessCallback();
         }, 2000); // Wait 2 seconds
-        
 
         // onSuccessCallback();
 

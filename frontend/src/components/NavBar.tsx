@@ -1,5 +1,4 @@
  // Navbar.jsx
- import React from 'react';
  import './../styles/NavBar.css'
   import { Link } from 'react-router-dom';
  
@@ -17,7 +16,7 @@
             <li>
                 <details>
                 <summary>Profile</summary>
-                <ul className="bg-base-100 rounded-t-none p-2">
+                <ul className="bg-base-100 text-base-content ounded-t-none p-2">
                     <li><Link to="/register/"><a>Register</a></Link></li>
                     <li><Link to="/login/">Login</Link></li>
                     <li><Link to="/logout/">Logout</Link></li>

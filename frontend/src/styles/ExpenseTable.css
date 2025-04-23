@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
 .expense-table {
   table-layout: fixed;
   width: 100%;

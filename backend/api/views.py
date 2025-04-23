@@ -52,10 +52,10 @@ class ExpenseDelete(generics.DestroyAPIView):
 
 @csrf_exempt
 def create_link_token(request):
-    user = LinkTokenCreateRequestUser(client_user_id="user-id-123")
+    user = LinkTokenCreateRequestUser(client_user_id = "test") #probably will change to username
     request_data = LinkTokenCreateRequest(
         user=user,
-        client_name="Your App",
+        client_name="Budget Central",
         products=[Products("transactions")],
         country_codes=[CountryCode("US")],
         language="en"
@@ -104,11 +104,10 @@ def get_transactions(request):
 
         transactions = res.to_dict()["transactions"]
 
-        # 🔍 DEBUG PRINT
+        #  DEBUG PRINT
         print("✅ Transactions received:")
         for txn in transactions:
             print(txn)
-            # print(f"  🧾 {txn['date']} - {txn['name']}: ${txn['amount']}")
 
         return JsonResponse(res.to_dict())
 
