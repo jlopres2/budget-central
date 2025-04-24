@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-import Home from "./pages/Home"
+import Transactions from "./pages/Transactions"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoutes"
-import Navbar from "./components/NavBar"
+import MainLayout from "./layout/MainLayout"
 
 function Logout() {
   localStorage.clear()
@@ -19,13 +19,12 @@ function RegisterAndLogout() {
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
         <Route
-          path="/"
+          path="/*"
           element={
             <ProtectedRoute>
-              <Home />
+              <MainLayout />
             </ProtectedRoute>
           }
         />

@@ -37,6 +37,7 @@ export const PlaidLinkButton: React.FC<Props> = ({ onSuccessCallback }) => {
           onSuccessCallback();
         }, 2000); // Wait 2 seconds
 
+
         // onSuccessCallback();
 
 

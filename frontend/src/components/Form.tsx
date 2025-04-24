@@ -27,7 +27,7 @@ function Form({ route, method }: FormProps) {
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/")
+                navigate("/Transactions")
             } else {
                 navigate("/login")
             }
