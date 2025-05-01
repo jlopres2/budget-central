@@ -12,7 +12,7 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ items }) => {
   return (
-    <div className="w-64 h-screen bg-base-200 p-4 flex flex-col items-center">
+    <div className="w-64 h-screen bg-base-300 p-4 flex flex-col items-center">
       <ul className="menu text-base-content font-poppins text-center">
         <div className="dropdown dropdown-right">
             <div tabIndex={0} role="button" className="btn-ghost m-1 font-bold">Charles Dalisay</div> {/*Insert pictures here*/}

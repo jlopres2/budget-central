@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-import Transactions from "./pages/Transactions"
+import Transactions from "./pages/TransactionsPage"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoutes"
 import MainLayout from "./layout/MainLayout"

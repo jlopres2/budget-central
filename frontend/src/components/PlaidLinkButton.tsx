@@ -29,17 +29,12 @@ export const PlaidLinkButton: React.FC<Props> = ({ onSuccessCallback }) => {
         const res = await api.post("/api/exchange_public_token/", {
           public_token,
         });
-        console.log("✅ Public token exchanged successfully");
         localStorage.setItem("plaid_access_token", res.data.access_token);
         
         // Add short delay before calling transaction fetch
         setTimeout(() => {
           onSuccessCallback();
         }, 2000); // Wait 2 seconds
-
-
-        // onSuccessCallback();
-
 
       } catch (err) {
         console.error("❌ Error exchanging public token:", err);
@@ -51,7 +46,7 @@ export const PlaidLinkButton: React.FC<Props> = ({ onSuccessCallback }) => {
     <button
       onClick={() => open()}
       disabled={!ready}
-      className="bg-blue-600 text-white px-4 py-2 rounded"
+      className="bg-blue-700 text-white px-4 py-2 rounded"
     >
       Connect Bank
     </button>

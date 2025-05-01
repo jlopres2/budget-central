@@ -4,7 +4,7 @@ import Sidebar from '../components/SideBar';
 
 import Overview from '../pages/Overview';
 import Savings from '../pages/Savings';
-import Transactions from '../pages/Transactions';
+import TransactionsPage from '../pages/TransactionsPage';
 import Investments from '../pages/Investments';
 import BudgetPlan from '../pages/BudgetPlan';
 
@@ -21,13 +21,13 @@ const sidebarItems = [
 
 const MainLayout: React.FC = () => {
   return (
-    <div className="flex">
+    <div className="flex bg-base-200 ">
       <Sidebar items={sidebarItems} />
       <main className="flex-1 p-6">
         <Routes>
           <Route path="/Overview" element={<Overview />} /> 
           <Route path="/Savings" element={<Savings />} />
-          <Route path="/Transactions" element={<Transactions />} /> 
+          <Route path="/Transactions" element={<TransactionsPage />} /> 
           <Route path="/Investments" element={<Investments />} />
           <Route path="/Budget-Plan" element={<BudgetPlan />} /> 
           <Route path="*" element={<NotFound />}></Route>
