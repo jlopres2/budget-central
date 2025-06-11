@@ -52,3 +52,8 @@ export default tseslint.config({
   },
 })
 ```
+
+### To Run Docker for the Frontend:
+Ensure you are in the frontend directory and run these commands:
+docker build -t frontend .
+docker run -p 5173:5173 frontend
