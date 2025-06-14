@@ -9,7 +9,7 @@ load_dotenv()
 # Load from .env
 PLAID_CLIENT_ID = os.getenv("PLAID_CLIENT_ID")
 PLAID_SECRET = os.getenv("PLAID_SECRET")
-PLAID_ENV = os.getenv("PLAID_ENV", "sandbox").lower()
+PLAID_ENV = os.getenv("PLAID_ENV", 'sandbox').lower()
 
 # Host mapping
 host_map = {
