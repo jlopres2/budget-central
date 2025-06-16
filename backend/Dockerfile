@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run Django server on container startup
-CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
+CMD ["gunicorn", "--timeout", "120", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]

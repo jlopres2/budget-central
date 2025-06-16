@@ -1,24 +1,21 @@
-#uses node version 23 as base image
-FROM node:23
+# Build stage
+FROM node:20 AS build
 
-#Goes to the app directory
-WORKDIR /frontend
+WORKDIR /app
 
-#Copy package.json and package-lock.json
-COPY package.json package-lock.json* ./
-
-#Install app dependencies
+COPY package*.json ./
 RUN npm install
 
-#Copy the rest of our app into the container
 COPY . .
+RUN npm run build
 
-#Set port environment variable
-ENV PORT=5173
-ENV VITE_HOST=0.0.0.0
+# Serve with nginx
+FROM nginx:alpine
 
-#Expose the port so our computer can access it
-EXPOSE 5173
+COPY --from=build /app/dist /usr/share/nginx/html
 
-#Run the app
-CMD ["npm", "run", "dev"]
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
